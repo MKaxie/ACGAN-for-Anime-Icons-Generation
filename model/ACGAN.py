@@ -115,7 +115,7 @@ class ICONGAN(): # 主类
 
                 fake_img = self.Generater(noize,label)
                 fake_c,fake_s = self.Discriminater(fake_img)
-                fake_c_loss = self.CE_loss(fake_c,label) # 生成图片分类CEloss
+                fake_c_loss = self.BCE_loss(fake_c,label) # 生成图片分类CEloss
                 fake_s_loss = self.BCE_loss(fake_s,fake_score) # 生成图片得分BCEloss,得分越低，损失越小
 
                 Ls_loss = real_s_loss + fake_s_loss # 判别损失
@@ -132,7 +132,7 @@ class ICONGAN(): # 主类
                 fake_img = self.Generater(noize,label)
                 fake_c,fake_s = self.Discriminater(fake_img)
                 G_loss = self.BCE_loss(fake_s,real_score) # 生成图片得分BCEloss
-                G_loss += self.CE_loss(fake_c,label) # 生成图片分类CEloss
+                G_loss += self.BCE_loss(fake_c,label) # 生成图片分类CEloss
                 
                 self.train_hist['G_loss'].append(G_loss.item()) # 记录生成器损失
                 gloss.append(G_loss.item())
