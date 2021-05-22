@@ -206,8 +206,8 @@ class ICONGAN(): # 主类
         imgs = self.Generater(labels)
         scores = self.Discriminater(imgs)
 
-        imgs = imgs.cpu().numpy()
-        scores = scores.cpu().numpy()
+        imgs = imgs.cpu().detach().numpy()
+        scores = scores[1].cpu().detach().numpy()
 
         for i in range(len(scores)):
             cv2.imwrite(self.result_path+f'/{scores[i]}.jpg',imgs[i])
@@ -217,7 +217,7 @@ class ICONGAN(): # 主类
 
     def plot_loss(self):
 
-        x = np.array([_ for _ in range(self.Epochs*len(self.trainloader))])
+        x = np.array([_ for _ in range(len(self.train_hist['D_loss'])])
         plt.figure(figsize=(20,15))
         plt.plot(x,self.train_hist['D_loss'],'deepskyblue')
         plt.plot(x,self.train_hist['G_loss'],'orange')
