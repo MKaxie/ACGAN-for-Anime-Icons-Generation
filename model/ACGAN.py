@@ -103,7 +103,7 @@ class ICONGAN(): # 主类
                     real_img = real_img.to(self.device)
                     noize = torch.randn([self.batch_size,102],dtype=torch.float32)
                     label = label.to(self.device)
-                    label_c = label.long()
+                    # label_c = label.long()
                     real_score = torch.ones([self.batch_size,1]).to(self.device) # 真实图片得分
                     fake_score = torch.zeros([self.batch_size,1]).to(self.device) # 生成图片得分
 
